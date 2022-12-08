@@ -7,6 +7,7 @@ setup(
     name="chatgpt-grpc",
     version="0.0.1",
     description="",
+    packages=['chatgpt_grpc'],
     install_requires=[
         "chatgpt",
         "grpcio-tools"
@@ -14,6 +15,7 @@ setup(
     entry_points={
         'console_scripts': [
             'chatgpt_grpc = chatgpt_grpc.main:main',
+            'chatgpt_grpc_cli = chatgpt_grpc.cli:main',
         ],
     },
 )
