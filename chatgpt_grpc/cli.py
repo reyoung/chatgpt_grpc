@@ -10,7 +10,7 @@ def stdin_iterator():
 
 
 def main():
-    channel = grpc.insecure_channel(sys.argv[0])
+    channel = grpc.insecure_channel(sys.argv[1])
     stub = ChatGPTServiceStub(channel)
 
     for rsp in stub.Chat(stdin_iterator()):

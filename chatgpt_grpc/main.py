@@ -13,8 +13,9 @@ class Servicer(ChatGPTServiceServicer):
         for req in request_iterator:
             try:
                 result = conversation.chat(req.text)
-            except Exception as e:
-                yield ChatResponse(error=str(e))
+            except:
+                import traceback as tb
+                yield ChatResponse(error=tb.format_exc())
             else:
                 yield ChatResponse(text=result)
 
