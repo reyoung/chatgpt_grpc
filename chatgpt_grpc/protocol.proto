@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package chatgpt_grpc;
+
+
+message ChatRequest {
+  string text = 1;
+}
+
+message ChatResponse {
+  oneof rsp {
+    string text = 1;
+    string error = 2;
+  }
+}
+
+service ChatGPTService {
+  rpc Chat(stream ChatRequest) returns (stream ChatResponse){}
+}
