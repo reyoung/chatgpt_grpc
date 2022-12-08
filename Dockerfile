@@ -1,5 +1,4 @@
-FROM python as builder
-COPY . /workspace
-RUN cd /workspace && python setup.py bdist_wheel
-
 FROM python
+COPY . /workspace
+RUN cd /workspace && pip install --no-cache . && cd / && rm -rf /workspace
+CMD ["chatgpt_grpc"]
