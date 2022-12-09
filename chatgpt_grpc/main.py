@@ -6,7 +6,7 @@ import grpc
 
 from chatgpt_grpc.protocol_pb2_grpc import ChatGPTServiceServicer, add_ChatGPTServiceServicer_to_server
 from chatgpt_grpc.protocol_pb2 import ChatResponse
-from chatgpt.chatgpt import Conversation
+from revChatGPT.revChatGPT import Chatbot
 
 logging.basicConfig(
     filename="./log.out",
@@ -14,18 +14,32 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+email = os.getenv("OPENAI_EMAIL", None)
+password = os.getenv("OPENAI_PASSWORD", None)
+access_token = os.getenv("OPENAI_TOKEN", None)
+timeout = int(os.getenv("OPENAI_TIMEOUT", "120"))
+
+
+def create_chatbot() -> Chatbot:
+    config = dict()
+    if email is not None:
+        config['email'] = email
+        config["password"] = password
+    if access_token is not None:
+        config["session_token"] = access_token
+
+    return Chatbot(config)
+
 
 class Servicer(ChatGPTServiceServicer):
     def Chat(self, request_iterator, context):
-        conversation = Conversation(email=os.getenv("OPENAI_EMAIL", None), password=os.getenv("OPENAI_PASSWORD", None),
-                                    access_token=os.getenv("OPENAI_TOKEN", None),
-                                    timeout=int(os.getenv("OPENAI_TIMEOUT", "120")))
-        c_id = f"{id(conversation)}_{time.time()}"
+        chatbot = create_chatbot()
+        c_id = f"{id(chatbot)}_{time.time()}"
         logger.info(f"create conversion, id=({c_id})")
         for req in request_iterator:
             logger.info(f'send text, text="{req.text}", c_id="{c_id}"')
             try:
-                result = conversation.chat(req.text)
+                result = chatbot.get_chat_response(req.text)["message"]
             except:
                 import traceback as tb
                 logger.error(f'error, {tb.format_exc()}, c_id="{c_id}')

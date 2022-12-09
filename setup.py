@@ -9,7 +9,7 @@ setup(
     description="",
     packages=['chatgpt_grpc'],
     install_requires=[
-        "chatgpt",
+        "revChatGPT",
         "grpcio-tools"
     ],
     entry_points={
