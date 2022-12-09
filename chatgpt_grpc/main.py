@@ -5,7 +5,7 @@ from concurrent import futures
 import grpc
 
 from chatgpt_grpc.protocol_pb2_grpc import ChatGPTServiceServicer, add_ChatGPTServiceServicer_to_server
-from chatgpt_grpc.protocol_pb2 import ChatResponse
+from chatgpt_grpc.protocol_pb2 import ChatResponse,ChatStreamResponse
 from revChatGPT.revChatGPT import Chatbot
 
 logging.basicConfig(
@@ -47,6 +47,21 @@ class Servicer(ChatGPTServiceServicer):
             else:
                 logger.info(f'recv text, text={result}')
                 yield ChatResponse(text=result)
+
+    def StreamChat(self, request_iterator, context):
+        chatbot = create_chatbot()
+        c_id = f"{id(chatbot)}_{time.time()}"
+        logger.info(f"create convsersion, id=({c_id})")
+        for req in request_iterator:
+            logger.info(f'send text, text="{req.text}", c_id="{c_id}"')
+            try:
+                for msg in chatbot.get_chat_response(req.text, output="stream"):
+                    yield ChatStreamResponse(text=msg.text)
+                yield ChatStreamResponse(end_of_stream=True)
+            except:
+                import traceback as tb
+                logger.error(f'error, {tb.format_exc()}, c_id="{c_id}')
+                yield ChatStreamResponse(error=tb.format_exc())
 
 
 def main():

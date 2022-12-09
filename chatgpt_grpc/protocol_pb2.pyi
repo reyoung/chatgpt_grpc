@@ -17,3 +17,13 @@ class ChatResponse(_message.Message):
     error: str
     text: str
     def __init__(self, text: _Optional[str] = ..., error: _Optional[str] = ...) -> None: ...
+
+class ChatStreamResponse(_message.Message):
+    __slots__ = ["end_of_stream", "error", "text"]
+    END_OF_STREAM_FIELD_NUMBER: _ClassVar[int]
+    ERROR_FIELD_NUMBER: _ClassVar[int]
+    TEXT_FIELD_NUMBER: _ClassVar[int]
+    end_of_stream: bool
+    error: str
+    text: str
+    def __init__(self, text: _Optional[str] = ..., error: _Optional[str] = ..., end_of_stream: bool = ...) -> None: ...

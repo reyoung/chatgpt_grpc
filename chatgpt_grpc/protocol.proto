@@ -14,6 +14,15 @@ message ChatResponse {
   }
 }
 
+message ChatStreamResponse {
+  oneof rsp {
+    string text = 1;
+    string error = 2;
+    bool end_of_stream = 3;
+  }
+}
+
 service ChatGPTService {
   rpc Chat(stream ChatRequest) returns (stream ChatResponse){}
+  rpc StreamChat(stream ChatRequest) returns (stream ChatResponse){}
 }
