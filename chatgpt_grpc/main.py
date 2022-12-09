@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 
 class Servicer(ChatGPTServiceServicer):
     def Chat(self, request_iterator, context):
-        conversation = Conversation(email=os.getenv("OPENAI_EMAIL"), password=os.getenv("OPENAI_PASSWORD"))
+        conversation = Conversation(email=os.getenv("OPENAI_EMAIL", None), password=os.getenv("OPENAI_PASSWORD", None),
+                                    access_token=os.getenv("OPENAI_TOKEN", None))
         c_id = f"{id(conversation)}_{time.time()}"
         logger.info(f"create conversion, id=({c_id})")
         for req in request_iterator:
