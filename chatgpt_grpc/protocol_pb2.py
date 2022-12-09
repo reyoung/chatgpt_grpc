@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63hatgpt_grpc/protocol.proto\x12\x0c\x63hatgpt_grpc\"\x1b\n\x0b\x43hatRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"6\n\x0c\x43hatResponse\x12\x0e\n\x04text\x18\x01 \x01(\tH\x00\x12\x0f\n\x05\x65rror\x18\x02 \x01(\tH\x00\x42\x05\n\x03rsp\"U\n\x12\x43hatStreamResponse\x12\x0e\n\x04text\x18\x01 \x01(\tH\x00\x12\x0f\n\x05\x65rror\x18\x02 \x01(\tH\x00\x12\x17\n\rend_of_stream\x18\x03 \x01(\x08H\x00\x42\x05\n\x03rsp2\xa0\x01\n\x0e\x43hatGPTService\x12\x43\n\x04\x43hat\x12\x19.chatgpt_grpc.ChatRequest\x1a\x1a.chatgpt_grpc.ChatResponse\"\x00(\x01\x30\x01\x12I\n\nStreamChat\x12\x19.chatgpt_grpc.ChatRequest\x1a\x1a.chatgpt_grpc.ChatResponse\"\x00(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63hatgpt_grpc/protocol.proto\x12\x0c\x63hatgpt_grpc\"\x1b\n\x0b\x43hatRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"6\n\x0c\x43hatResponse\x12\x0e\n\x04text\x18\x01 \x01(\tH\x00\x12\x0f\n\x05\x65rror\x18\x02 \x01(\tH\x00\x42\x05\n\x03rsp\"U\n\x12\x43hatStreamResponse\x12\x0e\n\x04text\x18\x01 \x01(\tH\x00\x12\x0f\n\x05\x65rror\x18\x02 \x01(\tH\x00\x12\x17\n\rend_of_stream\x18\x03 \x01(\x08H\x00\x42\x05\n\x03rsp2\xa6\x01\n\x0e\x43hatGPTService\x12\x43\n\x04\x43hat\x12\x19.chatgpt_grpc.ChatRequest\x1a\x1a.chatgpt_grpc.ChatResponse\"\x00(\x01\x30\x01\x12O\n\nStreamChat\x12\x19.chatgpt_grpc.ChatRequest\x1a .chatgpt_grpc.ChatStreamResponse\"\x00(\x01\x30\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chatgpt_grpc.protocol_pb2', globals())
@@ -27,5 +27,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _CHATSTREAMRESPONSE._serialized_start=130
   _CHATSTREAMRESPONSE._serialized_end=215
   _CHATGPTSERVICE._serialized_start=218
-  _CHATGPTSERVICE._serialized_end=378
+  _CHATGPTSERVICE._serialized_end=384
 # @@protoc_insertion_point(module_scope)

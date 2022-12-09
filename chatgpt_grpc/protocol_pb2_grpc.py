@@ -22,7 +22,7 @@ class ChatGPTServiceStub(object):
         self.StreamChat = channel.stream_stream(
                 '/chatgpt_grpc.ChatGPTService/StreamChat',
                 request_serializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
-                response_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
+                response_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatStreamResponse.FromString,
                 )
 
 
@@ -52,7 +52,7 @@ def add_ChatGPTServiceServicer_to_server(servicer, server):
             'StreamChat': grpc.stream_stream_rpc_method_handler(
                     servicer.StreamChat,
                     request_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.FromString,
-                    response_serializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.SerializeToString,
+                    response_serializer=chatgpt__grpc_dot_protocol__pb2.ChatStreamResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -94,6 +94,6 @@ class ChatGPTService(object):
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/chatgpt_grpc.ChatGPTService/StreamChat',
             chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
-            chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
+            chatgpt__grpc_dot_protocol__pb2.ChatStreamResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
