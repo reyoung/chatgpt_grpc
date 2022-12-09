@@ -56,7 +56,8 @@ class Servicer(ChatGPTServiceServicer):
             logger.info(f'send text, text="{req.text}", c_id="{c_id}"')
             try:
                 for msg in chatbot.get_chat_response(req.text, output="stream"):
-                    yield ChatStreamResponse(text=msg.text)
+                    logger.info(f'get msg, msg={msg["message"]}, parent id="{chatbot.parent_id}", c_id="{c_id}"')
+                    yield ChatStreamResponse(text=msg["message"])
                 yield ChatStreamResponse(end_of_stream=True)
             except:
                 import traceback as tb
