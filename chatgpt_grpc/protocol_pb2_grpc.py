@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import protocol_pb2 as protocol__pb2
+from chatgpt_grpc import protocol_pb2 as chatgpt__grpc_dot_protocol__pb2
 
 
 class ChatGPTServiceStub(object):
@@ -16,13 +16,13 @@ class ChatGPTServiceStub(object):
         """
         self.Chat = channel.stream_stream(
                 '/chatgpt_grpc.ChatGPTService/Chat',
-                request_serializer=protocol__pb2.ChatRequest.SerializeToString,
-                response_deserializer=protocol__pb2.ChatResponse.FromString,
+                request_serializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
+                response_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
                 )
         self.StreamChat = channel.stream_stream(
                 '/chatgpt_grpc.ChatGPTService/StreamChat',
-                request_serializer=protocol__pb2.ChatRequest.SerializeToString,
-                response_deserializer=protocol__pb2.ChatResponse.FromString,
+                request_serializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
+                response_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
                 )
 
 
@@ -46,13 +46,13 @@ def add_ChatGPTServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Chat': grpc.stream_stream_rpc_method_handler(
                     servicer.Chat,
-                    request_deserializer=protocol__pb2.ChatRequest.FromString,
-                    response_serializer=protocol__pb2.ChatResponse.SerializeToString,
+                    request_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.FromString,
+                    response_serializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.SerializeToString,
             ),
             'StreamChat': grpc.stream_stream_rpc_method_handler(
                     servicer.StreamChat,
-                    request_deserializer=protocol__pb2.ChatRequest.FromString,
-                    response_serializer=protocol__pb2.ChatResponse.SerializeToString,
+                    request_deserializer=chatgpt__grpc_dot_protocol__pb2.ChatRequest.FromString,
+                    response_serializer=chatgpt__grpc_dot_protocol__pb2.ChatResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -76,8 +76,8 @@ class ChatGPTService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/chatgpt_grpc.ChatGPTService/Chat',
-            protocol__pb2.ChatRequest.SerializeToString,
-            protocol__pb2.ChatResponse.FromString,
+            chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
+            chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -93,7 +93,7 @@ class ChatGPTService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_stream(request_iterator, target, '/chatgpt_grpc.ChatGPTService/StreamChat',
-            protocol__pb2.ChatRequest.SerializeToString,
-            protocol__pb2.ChatResponse.FromString,
+            chatgpt__grpc_dot_protocol__pb2.ChatRequest.SerializeToString,
+            chatgpt__grpc_dot_protocol__pb2.ChatResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
