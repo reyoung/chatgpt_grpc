@@ -18,15 +18,23 @@ email = os.getenv("OPENAI_EMAIL", None)
 password = os.getenv("OPENAI_PASSWORD", None)
 access_token = os.getenv("OPENAI_TOKEN", None)
 timeout = int(os.getenv("OPENAI_TIMEOUT", "120"))
+cf_clearance = os.getenv('OPENAI_CF_CLEARANCE', None)
+user_agent = os.getenv('OPENAI_USER_AGENT', None)
 
 
 def create_chatbot() -> Chatbot:
     config = dict()
     if email is not None:
-        config['email'] = email
-        config["password"] = password
+        raise RuntimeError("email currently is not support")
     if access_token is not None:
         config["session_token"] = access_token
+
+    if cf_clearance is not None:
+        config['cf_clearance'] = cf_clearance
+        config['user_agent'] = user_agent
+    else:
+        raise RuntimeError("cf_clearance/user_agent must set")
+
 
     return Chatbot(config)
 
